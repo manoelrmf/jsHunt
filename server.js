@@ -4,7 +4,7 @@ const requireDir = require('require-dir')
 
 //Inicia o app
 const app = express()
-
+app.use(express.json())
 //Inicia o database
 
 mongoose.connect('mongodb://localhost:27017/nodeapi', {
