@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import api from './../../services/api'
 import './index.css'
 
@@ -40,7 +41,7 @@ function Main() {
           <strong>{produto.title}</strong>
           <p>{produto.description}</p>
 
-          <a href="">Acessar</a>
+          <Link to={`/product/${produto._id}`}>Acessar</Link>
         </article>
       ))}
       <div className="actions">
