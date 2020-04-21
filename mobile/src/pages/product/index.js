@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { WebView } from 'react-native-webview'
 import './../../config/StatusBarConfig'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
@@ -13,7 +14,7 @@ export default function Product() {
 
   return (
     <View style={styles.container}>
-      <Text>{product.title}</Text>
+       <WebView  source={{ uri: product.url }} />
     </View>
   );
 }
