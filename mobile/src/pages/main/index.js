@@ -2,15 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import './../../config/StatusBarConfig'
 import api from './../../services/api'
+import { useNavigation } from '@react-navigation/native'
 
 export default function Main() {
   const [products, setProducts] = useState([])
   const [productInfo, setProductInfo] = useState({})
   const [page, setPage] = useState(1)
+  const navigation = useNavigation()
 
   useEffect(() => {
     loadProducts(1)
   }, [])
+  
+  function navigateToProduct(product) {
+    navigation.navigate('Product', { product })
+  }
 
   async function loadProducts(page) {
     const response = await api.get(`/products?page=${page}`)
@@ -20,21 +26,21 @@ export default function Main() {
     setPage(page)
   }
 
-  function loadMore(){
-    if(page === parseInt(productInfo.pages)) return
+  function loadMore() {
+    if (page === parseInt(productInfo.pages)) return
 
     const pageNumber = page + 1
 
     loadProducts(pageNumber)
   }
 
-  function renderItem({ item }){
+  function renderItem({ item }) {
     return (
       <View style={styles.productContiner}>
         <Text style={styles.productItle}>{item.title}</Text>
         <Text style={styles.productDescription}>{item.description}</Text>
 
-        <TouchableOpacity style={styles.productButton} onPress={() => {}}>
+        <TouchableOpacity style={styles.productButton} onPress={() => navigateToProduct(item)}>
           <Text style={styles.productButtonText}>Acessar</Text>
         </TouchableOpacity>
       </View>
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa'
   },
 
-  list:{
+  list: {
     padding: 20
   },
 
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
     color: '#da552f',
     fontWeight: 'bold'
   }
-  
+
 
 
 });
