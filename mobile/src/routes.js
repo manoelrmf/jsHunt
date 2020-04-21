@@ -20,8 +20,19 @@ export default function Routes(){
                 },
                 headerTintColor: '#fff'
               }}>
-                <AppStack.Screen  name="JSHunt"component={Main} />
-                <AppStack.Screen  name="Product"component={Product} />
+                <AppStack.Screen          
+                  options={{ title: 'JSHunt' }}
+                  name="Main"
+                  component={Main} 
+                />
+                <AppStack.Screen
+                  options={({
+                     route }) => 
+                      ({ title: route.params.product.title 
+                  })}
+                  name="Product"
+                  component={Product}
+                />
             </AppStack.Navigator>
         </NavigationContainer>
     )
