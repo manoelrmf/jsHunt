@@ -5,15 +5,27 @@ import api from './../../services/api'
 
 export default function Main() {
   const [products, setProducts] = useState([])
+  const [productInfo, setProductInfo] = useState({})
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
-    loadProducts()
+    loadProducts(1)
   }, [])
 
-  async function loadProducts() {
-    const response = await api.get(`/products?page=1`)
-    const { docs } = response.data
-    setProducts(docs)
+  async function loadProducts(page) {
+    const response = await api.get(`/products?page=${page}`)
+    const { docs, ...productInfo } = response.data
+    setProducts([...products, ...docs])
+    setProductInfo(productInfo)
+    setPage(page)
+  }
+
+  function loadMore(){
+    if(page === parseInt(productInfo.pages)) return
+
+    const pageNumber = page + 1
+
+    loadProducts(pageNumber)
   }
 
   function renderItem({ item }){
@@ -36,6 +48,8 @@ export default function Main() {
         data={products}
         keyExtractor={item => item._id}
         renderItem={renderItem}
+        onEndReached={loadMore}
+        onEndReachedThreshold={0.1}
       />
     </View>
   );
