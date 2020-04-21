@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 const AppStack = createStackNavigator()
 
 import Main from './pages/main'
+import Product from './pages/product'
 
 export default function Routes(){
     return(
@@ -20,6 +21,7 @@ export default function Routes(){
                 headerTintColor: '#fff'
               }}>
                 <AppStack.Screen  name="JSHunt"component={Main} />
+                <AppStack.Screen  name="Product"component={Product} />
             </AppStack.Navigator>
         </NavigationContainer>
     )
